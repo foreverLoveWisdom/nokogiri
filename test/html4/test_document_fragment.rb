@@ -182,9 +182,6 @@ module Nokogiri
         end
 
         def test_element_children_counts
-          if Nokogiri.uses_libxml?("<= 2.9.1")
-            skip("#elements doesn't work in 2.9.1, see 1793a5a for history")
-          end
           doc = Nokogiri::HTML4::DocumentFragment.parse("   <div>  </div>\n   ")
           assert_equal(1, doc.element_children.count)
         end
@@ -268,6 +265,15 @@ module Nokogiri
           original = Nokogiri::HTML4::DocumentFragment.parse("<div><p>hello</p></div>")
           duplicate = original.dup
           assert_instance_of(Nokogiri::HTML4::DocumentFragment, duplicate)
+        end
+
+        def test_parse_with_io
+          fragment = Nokogiri::HTML4::DocumentFragment.parse(StringIO.new("<div>hello</div>"), "UTF-8")
+          assert_instance_of(HTML4::DocumentFragment, fragment)
+          assert_equal("<div>hello</div>", fragment.to_s)
+
+          fragment = Nokogiri::HTML4::DocumentFragment.parse(StringIO.new("<div>hello</div>"))
+          assert_equal("<div>hello</div>", fragment.to_s)
         end
 
         describe "encoding" do

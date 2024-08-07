@@ -10,7 +10,7 @@ Nokogiri follows [Semantic Versioning](https://semver.org/), please see the [REA
 
 * [CRuby] Vendored libxml2 is updated to [v2.13.3](https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.13.3). [#3230] @flavorjones
 * [CRuby] Vendored libxslt is updated to [v1.1.42](https://gitlab.gnome.org/GNOME/libxslt/-/releases/v1.1.42). [#3230] @flavorjones
-* [CRuby] Minimum supported version of libxml2 raised to v2.7.7 (released 2010-03-15) from v2.6.21. [#3232] @flavorjones
+* [CRuby] Minimum supported version of libxml2 raised to v2.9.2 (released 2014-10-16) from v2.6.21. [#3232, #3287] @flavorjones
 * [JRuby] Minimum supported versino of Java raised to 8 (released 2014-03-18) from 7. [#3134] @flavorjones 
 * [CRuby] Update to rake-compiler-dock v1.5.1 for building precompiled native gems. [#3216] @flavorjones
 
@@ -73,6 +73,7 @@ We've resolved many long-standing bugs in the various schema classes, validation
 * CSS queries for pseudo-selectors that cannot be translated into XPath expressions now raise a more descriptive `Nokogiri::CSS::SyntaxError` when they are parsed. Previously, an invalid XPath expression was evaluated and a hard-to-understand XPath error was raised by the query engine. [#3193] @flavorjones
 * `Schema#validate` returns errors on empty and malformed files. Previously, it would return errors on empty/malformed Documents, but not when reading from files. [#642] @flavorjones
 * `XML::Builder` is now consistent with how it sets block scope. Previously, missing methods with blocks on dynamically-created nodes were always handled by invoking `instance_eval(&block)` on the Builder, even when the Builder was yielding self for all other missing methods with blocks. [#1041] @flavorjones
+* `HTML4::DocumentFragment.parse` accepts `IO` input. Previously, it required a string and would raise a `TypeError` when passed an `IO`. [#2069] @sharvy
 * [CRuby] libgumbo (the HTML5 parser) treats reaching max-depth as EOF. This addresses a class of issues when the parser is interrupted in this way. [#3121] @stevecheckoway
 * [CRuby] Update node GC lifecycle to avoid a potential memory leak with fragments in libxml 2.13.0 caused by changes in `xmlAddChild`. [#3156] @flavorjones
 * [CRuby] libgumbo correctly prints nonstandard element names in error messages. [#3219] @stevecheckoway
